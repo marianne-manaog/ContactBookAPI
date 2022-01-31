@@ -1,8 +1,11 @@
 package com.qa.contactbookapi.data.entity;
 
 import java.time.LocalDate;
+
+
 import java.time.Period;
 import java.util.Objects;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,9 +22,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+// This 'Contact' class includes relevant details of the contact to be added.
+
 @Entity
 @Table(name = "Contacts")
-public class Contacts {
+public class Contact {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,45 +42,45 @@ public class Contacts {
 	
 	@Size(min = 11, max = 11)
 	@NotNull
-	private Long mobileNumber;
+	private String mobileNumber;
 	
 	@Pattern(regexp=".+@.+\\.[a-z]+", message="Email address is invalid.")
 	private String emailAddress;
 	
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	@Transient
+//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dateOfBirth;
 	
 	@Transient
 	private Integer ageFromDateOfBirth;
 
-	public Contacts() {
+	public Contact() {
 		super();	
 	}
 
-	public Contacts(Long id, @NotNull @Length(min = 2, message = "First name must be provided.") String firstName,
-			@NotNull @Length(min = 2, message = "Last name must be provided.") String lastName,
-			@Size(min = 11, max = 11) @NotNull Long mobileNumber,
-			@Pattern(regexp = ".+@.+\\.[a-z]+", message = "Email address is invalid.") String emailAddress) {
+	public Contact(Long id, String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth, Integer ageFromDateOfBirth) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.emailAddress = emailAddress;
+		this.dateOfBirth = dateOfBirth;
+		this.ageFromDateOfBirth = ageFromDateOfBirth;
+		
 	}
 
-	public Contacts(@NotNull @Length(min = 2, message = "First name must be provided.") String firstName,
-			@NotNull @Length(min = 2, message = "Last name must be provided.") String lastName,
-			@Size(min = 11, max = 11) @NotNull Long mobileNumber,
-			@Pattern(regexp = ".+@.+\\.[a-z]+", message = "Email address is invalid.") String emailAddress) {
+	public Contact(String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth, Integer ageFromDateOfBirth) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.emailAddress = emailAddress;
+		this.dateOfBirth = dateOfBirth;
+		this.ageFromDateOfBirth = ageFromDateOfBirth;
+		
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -101,11 +106,11 @@ public class Contacts {
 		this.lastName = lastName;
 	}
 
-	public Long getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(Long mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 
@@ -125,7 +130,7 @@ public class Contacts {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Integer getAgeFromDateOfBirth() {
+	public Integer getAgeFromDateOfBirth(LocalDate dateOfBirth) {
 	      return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
 
 	}
@@ -136,7 +141,7 @@ public class Contacts {
 
 	@Override
 	public String toString() {
-		return "Contacts [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobileNumber="
+		return "Contact [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobileNumber="
 				+ mobileNumber + ", emailAddress=" + emailAddress + ", dateOfBirth=" + dateOfBirth
 				+ ", ageFromDateOfBirth=" + ageFromDateOfBirth + "]";
 	}
@@ -154,7 +159,7 @@ public class Contacts {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contacts other = (Contacts) obj;
+		Contact other = (Contact) obj;
 		return Objects.equals(ageFromDateOfBirth, other.ageFromDateOfBirth)
 				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(emailAddress, other.emailAddress)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
