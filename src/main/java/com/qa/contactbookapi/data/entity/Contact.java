@@ -3,9 +3,7 @@ package com.qa.contactbookapi.data.entity;
 import java.time.LocalDate;
 
 
-import java.time.Period;
 import java.util.Objects;
-
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,10 +15,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
-import javax.persistence.Transient;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 // This 'Contact' class includes relevant details of the contact to be added.
 
@@ -40,25 +34,21 @@ public class Contact {
 	@Length(min = 2, message = "Last name must be provided.") 
 	private String lastName;
 	
-	@Size(min = 11, max = 11)
+
+	@Size(min = 11, max = 11, message = "Mobile number must be 11-digit long (when dialling within the UK).")
 	@NotNull
 	private String mobileNumber;
 	
 	@Pattern(regexp=".+@.+\\.[a-z]+", message="Email address is invalid.")
 	private String emailAddress;
 	
-//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dateOfBirth;
-	
-	@Transient
-	private Integer ageFromDateOfBirth;
 
 	public Contact() {
 		super();	
 	}
 
-	public Contact(Long id, String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth, Integer ageFromDateOfBirth) {
+	public Contact(Long id, String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -66,22 +56,19 @@ public class Contact {
 		this.mobileNumber = mobileNumber;
 		this.emailAddress = emailAddress;
 		this.dateOfBirth = dateOfBirth;
-		this.ageFromDateOfBirth = ageFromDateOfBirth;
-		
+	
 	}
 
-	public Contact(String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth, Integer ageFromDateOfBirth) {
+	public Contact(String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.emailAddress = emailAddress;
 		this.dateOfBirth = dateOfBirth;
-		this.ageFromDateOfBirth = ageFromDateOfBirth;
-		
+ 
 	}
-	
-
+  
 	public Long getId() {
 		return id;
 	}
@@ -130,25 +117,15 @@ public class Contact {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Integer getAgeFromDateOfBirth(LocalDate dateOfBirth) {
-	      return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
-
-	}
-	
-	public void setAge(Integer ageFromDateOfBirth) {
-		this.ageFromDateOfBirth = ageFromDateOfBirth; 
-	}
-
 	@Override
 	public String toString() {
 		return "Contact [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobileNumber="
-				+ mobileNumber + ", emailAddress=" + emailAddress + ", dateOfBirth=" + dateOfBirth
-				+ ", ageFromDateOfBirth=" + ageFromDateOfBirth + "]";
+				+ mobileNumber + ", emailAddress=" + emailAddress + ", dateOfBirth=" + dateOfBirth + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ageFromDateOfBirth, dateOfBirth, emailAddress, firstName, id, lastName, mobileNumber);
+		return Objects.hash(dateOfBirth, emailAddress, firstName, id, lastName, mobileNumber);
 	}
 
 	@Override
@@ -160,8 +137,8 @@ public class Contact {
 		if (getClass() != obj.getClass())
 			return false;
 		Contact other = (Contact) obj;
-		return Objects.equals(ageFromDateOfBirth, other.ageFromDateOfBirth)
-				&& Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(emailAddress, other.emailAddress)
+
+		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(emailAddress, other.emailAddress)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(mobileNumber, other.mobileNumber);
 	}
