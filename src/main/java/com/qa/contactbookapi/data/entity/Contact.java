@@ -2,6 +2,7 @@ package com.qa.contactbookapi.data.entity;
 
 import java.time.LocalDate;
 
+
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -33,6 +34,7 @@ public class Contact {
 	@Length(min = 2, message = "Last name must be provided.") 
 	private String lastName;
 	
+
 	@Size(min = 11, max = 11, message = "Mobile number must be 11-digit long (when dialling within the UK).")
 	@NotNull
 	private String mobileNumber;
@@ -54,7 +56,7 @@ public class Contact {
 		this.mobileNumber = mobileNumber;
 		this.emailAddress = emailAddress;
 		this.dateOfBirth = dateOfBirth;
-		
+	
 	}
 
 	public Contact(String firstName, String lastName, String mobileNumber, String emailAddress, LocalDate dateOfBirth) {
@@ -64,9 +66,9 @@ public class Contact {
 		this.mobileNumber = mobileNumber;
 		this.emailAddress = emailAddress;
 		this.dateOfBirth = dateOfBirth;
-		
+ 
 	}
-
+  
 	public Long getId() {
 		return id;
 	}
@@ -135,6 +137,7 @@ public class Contact {
 		if (getClass() != obj.getClass())
 			return false;
 		Contact other = (Contact) obj;
+
 		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(emailAddress, other.emailAddress)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(mobileNumber, other.mobileNumber);
