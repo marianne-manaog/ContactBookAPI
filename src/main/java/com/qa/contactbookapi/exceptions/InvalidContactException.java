@@ -6,10 +6,6 @@ public class InvalidContactException extends EntityNotFoundException {
 
 	private static final long serialVersionUID = 1L;
 
-	public InvalidContactException() {
-		super();
-	}
-
 	public InvalidContactException(String message) {
 		super(message);
 	}

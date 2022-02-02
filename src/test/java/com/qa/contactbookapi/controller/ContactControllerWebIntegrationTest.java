@@ -36,6 +36,8 @@ public class ContactControllerWebIntegrationTest {
 	private List<Contact> contacts;
 	private Contact contactToCreate;
 	private Contact validContact;
+	private Contact updatedContactWithId;
+	private Contact updatedContactWithoutId;
 	
 	@BeforeEach
 	public void init() {
@@ -48,6 +50,8 @@ public class ContactControllerWebIntegrationTest {
 		contactToCreate = new Contact("Richard", "Feynman", "07777777757", "rick.feynman@myquantummail.com", LocalDate.of(1960, 1, 1));
 		validContact = new Contact(4L, "Richard", "Feynman", "07777777757", "rick.feynman@myquantummail.com", LocalDate.of(1960, 1, 1));
 		
+		updatedContactWithId = new Contact(1L, "Katrina", "Becketts", "07777777779", "katrina.becketts@mycoolmail.com", LocalDate.of(1992, 4, 6));
+		updatedContactWithoutId = new Contact("Katrina", "Becketts", "07777777779", "katrina.becketts@mycoolmail.com", LocalDate.of(1992, 4, 6));
 	}
 	
 	@Test
@@ -104,8 +108,6 @@ public class ContactControllerWebIntegrationTest {
 	
 	@Test
 	public void editContactByIdTest() {
-		Contact updatedContactWithId = new Contact(1L, "Katrina", "Becketts", "07777777779", "katrina.becketts@mycoolmail.com", LocalDate.of(1992, 4, 6));
-		Contact updatedContactWithoutId = new Contact("Katrina", "Becketts", "07777777779", "katrina.becketts@mycoolmail.com", LocalDate.of(1992, 4, 6));
 		
 		long contactId = updatedContactWithId.getId();
 		
@@ -123,8 +125,6 @@ public class ContactControllerWebIntegrationTest {
 	
 	@Test
 	public void editContactByLastNameAndFirstNameTest() {
-		Contact updatedContactWithId = new Contact(1L, "Katrina", "Becketts", "07777777779", "katrina.becketts@mycoolmail.com", LocalDate.of(1992, 4, 6));
-		Contact updatedContactWithoutId = new Contact("Katrina", "Becketts", "07777777779", "katrina.becketts@mycoolmail.com", LocalDate.of(1992, 4, 6));
 		
 		String lastName = updatedContactWithId.getLastName();
 		String firstName = updatedContactWithId.getFirstName();
@@ -143,6 +143,7 @@ public class ContactControllerWebIntegrationTest {
 	
 	@Test
 	public void removeContactTest() {
+		
 		long contactId = 1;
 		ResponseEntity<?> expected = ResponseEntity.accepted().build();
 		ResponseEntity<?> result = controller.removeContact(contactId);
@@ -153,7 +154,6 @@ public class ContactControllerWebIntegrationTest {
 	
 	@Test
 	public void removeAllContactTest() {
-
 		ResponseEntity<?> expected = ResponseEntity.accepted().build();
 		ResponseEntity<?> result = controller.removeAllContacts();
 		

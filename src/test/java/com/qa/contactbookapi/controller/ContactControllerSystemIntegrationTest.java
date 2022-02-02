@@ -5,10 +5,12 @@ import com.qa.contactbookapi.data.entity.Contact;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.Mock;
@@ -43,19 +45,31 @@ public class ContactControllerSystemIntegrationTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	@Test
-	public void fetchAllContactsTest() throws Exception {
-
-		Long firstContactId = 1L;
+	private List<Contact> expectedContactsList;
+	
+	private Contact expectedFirstContact;
+	
+	private Long firstContactId;
+	
+	@BeforeEach
+	public void init() {
+		
+		firstContactId = 1L;
 		Long secondContactId = 2L;
 		Long thirdContactId = 3L;
 		
-		List<Contact> expectedContactsList = List.of(
+		expectedContactsList = List.of(
 				new Contact(firstContactId, "Kate", "Beckett", "07777777777", "kate.beckett@mycoolmail.com", LocalDate.of(1993, 4, 6)),
 				new Contact(secondContactId, "Richard", "Castle", "07777777767", "richard.castle@mygreatmail.com", LocalDate.of(1992, 3, 5)),
 				new Contact(thirdContactId, "Kevin", "Ryan", "07777777757", "kevin.ryan@mygoodmail.com", LocalDate.of(1991, 2, 4))
 		);
 		
+		expectedFirstContact = expectedContactsList.get(0);
+	}
+	
+	@Test
+	public void fetchAllContactsTest() throws Exception {
+
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/contact/");
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
 		mockRequest.content(objectMapper.writeValueAsString(expectedContactsList));
@@ -70,17 +84,13 @@ public class ContactControllerSystemIntegrationTest {
 	
 	@Test
 	public void fetchContactByIdTest() throws Exception {
-
-		Long contactId = 1L;
-		
-		Contact expectedContact = new Contact(contactId, "Kate", "Beckett", "07777777777", "kate.beckett@mycoolmail.com", LocalDate.of(1993, 4, 6));
-		
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/contact/" + contactId);
+				
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/contact/" + firstContactId);
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(contactId));
+		mockRequest.content(objectMapper.writeValueAsString(firstContactId));
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 
-		String contactJson = objectMapper.writeValueAsString(expectedContact);
+		String contactJson = objectMapper.writeValueAsString(expectedFirstContact);
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(contactJson);
 
@@ -89,20 +99,17 @@ public class ContactControllerSystemIntegrationTest {
 
 	@Test
 	public void fetchContactByLastNameAndFirstNameTest() throws Exception {
-
-		Long contactId = 1L;
-		String firstName = "Kate";
-		String lastName = "Beckett";
 		
-		Contact expectedContact = new Contact(contactId, firstName, lastName, "07777777777", "kate.beckett@mycoolmail.com", LocalDate.of(1993, 4, 6));
+		String firstNameExpectedContact = expectedFirstContact.getFirstName();
+		String lastNameExpectedContact = expectedFirstContact.getLastName();
 		
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/contact/" + firstName + "/" + lastName);
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/contact/" + firstNameExpectedContact + "/" + lastNameExpectedContact);
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
-		mockRequest.content(objectMapper.writeValueAsString(firstName));
-		mockRequest.content(objectMapper.writeValueAsString(lastName));
+		mockRequest.content(objectMapper.writeValueAsString(firstNameExpectedContact));
+		mockRequest.content(objectMapper.writeValueAsString(lastNameExpectedContact));
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 
-		String contactJson = objectMapper.writeValueAsString(expectedContact);
+		String contactJson = objectMapper.writeValueAsString(expectedFirstContact);
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(contactJson);
 
@@ -131,13 +138,11 @@ public class ContactControllerSystemIntegrationTest {
 
 	@Test
 	public void editContactByIdTest() throws Exception {
-
-		Long contactId = 1L;
 		
 		Contact editedContact = new Contact("Katie", "Backett", "07777777777", "katie.backett@mycoolmail.com", LocalDate.of(1992, 4, 6));
-		Contact expectedContact = new Contact(contactId, "Katie", "Backett", "07777777777", "katie.backett@mycoolmail.com", LocalDate.of(1992, 4, 6));
+		Contact expectedContact = new Contact(firstContactId, "Katie", "Backett", "07777777777", "katie.backett@mycoolmail.com", LocalDate.of(1992, 4, 6));
 		
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT, "/contact/" + contactId);
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT, "/contact/" + firstContactId);
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
 		mockRequest.content(objectMapper.writeValueAsString(editedContact));
 		mockRequest.accept(MediaType.APPLICATION_JSON);
@@ -151,11 +156,9 @@ public class ContactControllerSystemIntegrationTest {
 
 	@Test
 	public void editContactByLastNameAndFirstNameTest() throws Exception {
-
-		Long contactId = 1L;
 		
 		Contact editedContact = new Contact("Kate", "Beckett", "07777777778", "katie.backett@mycoolmail.com", LocalDate.of(1992, 4, 6));
-		Contact expectedContact = new Contact(contactId, "Kate", "Beckett", "07777777778", "katie.backett@mycoolmail.com", LocalDate.of(1992, 4, 6));
+		Contact expectedContact = new Contact(firstContactId, "Kate", "Beckett", "07777777778", "katie.backett@mycoolmail.com", LocalDate.of(1992, 4, 6));
 		
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT, "/contact/" + editedContact.getFirstName() + "/" + editedContact.getLastName());
 		mockRequest.contentType(MediaType.APPLICATION_JSON);
@@ -171,9 +174,8 @@ public class ContactControllerSystemIntegrationTest {
 	
     @Test
     public void removeContactTest() throws Exception {
-    	Long contactId = 1L;
-        Mockito.when(contactController.removeContact(contactId)).thenReturn(ResponseEntity.accepted().build());
-        mockMvc.perform(MockMvcRequestBuilders.delete("/contact", contactId)).andExpect(status().isAccepted());
+        Mockito.when(contactController.removeContact(firstContactId)).thenReturn(ResponseEntity.accepted().build());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/contact", firstContactId)).andExpect(status().isAccepted());
     }
 	
     @Test

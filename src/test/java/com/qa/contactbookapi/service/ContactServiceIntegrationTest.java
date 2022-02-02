@@ -31,7 +31,13 @@ public class ContactServiceIntegrationTest {
 	private ContactRepository contactRepository;
 
 	private List<Contact> contactsInDatabase;
+	
+	private Contact firstSavedContact;
+	private Contact newContactModifiedFromFirstContactWithoutId;
+	
 	private long followingNewElementId;
+	
+	private long idFirstSavedContact;
 	
 	@BeforeEach
 	public void init() {
@@ -40,9 +46,14 @@ public class ContactServiceIntegrationTest {
 				new Contact(2L, "Richard", "Castle", "07777777767", "richard.castle@mygreatmail.com", LocalDate.of(1992, 3, 5)),
 				new Contact(3L, "Kevin", "Ryan", "07777777757", "kevin.ryan@mygoodmail.com", LocalDate.of(1991, 2, 4))
 		);
-		contactsInDatabase = new ArrayList<>();
 		
+		contactsInDatabase = new ArrayList<>();
 		contactsInDatabase.addAll(contactRepository.saveAll(contactsList));
+				
+		firstSavedContact = contactsInDatabase.get(0);
+		idFirstSavedContact = firstSavedContact.getId();
+
+		newContactModifiedFromFirstContactWithoutId = new Contact("Katie", "Brockett", "08777777777", "katie.brockett@mycoolmail.com", LocalDate.of(1983, 2, 1));
 		
 		int sizeContacts = contactsInDatabase.size();
 		followingNewElementId = contactsInDatabase.get(sizeContacts - 1).getId() + 1;
@@ -55,84 +66,82 @@ public class ContactServiceIntegrationTest {
 	
 	@Test
 	public void fetchContactByIdTest() {
-		Contact savedContact = contactsInDatabase.get(0);
-		assertThat(contactService.fetchById(savedContact.getId())).isEqualTo(savedContact);
+		assertThat(contactService.fetchById(idFirstSavedContact)).isEqualTo(firstSavedContact);
 	}
 	
 	@Test
 	public void fetchContactByInvalidIdTest() {
-		int id = 55;
+		int invalidId = 55;
 		
 		InvalidContactException e = Assertions.assertThrows(InvalidContactException.class, () -> {
-			contactService.fetchById(id);
+			contactService.fetchById(invalidId);
 		});
 		
-		String expected = "Cannot find contact with ID " + id;
+		String expected = "Cannot find contact with ID " + invalidId;
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 
 	@Test
 	public void fetchContactByLastNameAndFirstNameTest() {
-		Contact savedContact = contactsInDatabase.get(0);
-		assertThat(contactService.fetchByLastNameAndFirstName(savedContact.getLastName(), savedContact.getFirstName())).isEqualTo(savedContact);
+		assertThat(contactService.fetchByLastNameAndFirstName(firstSavedContact.getLastName(), firstSavedContact.getFirstName())).isEqualTo(firstSavedContact);
 	}
 	
 	@Test
 	public void generateContactTest() {
-		Contact contactToPersist = new Contact("Katie", "Brockett", "08777777777", "katie.brockett@mycoolmail.com", LocalDate.of(1983, 2, 1));
 		Contact expectedContactPersisted = new Contact(
 				followingNewElementId,
-				contactToPersist.getFirstName(),
-				contactToPersist.getLastName(),
-				contactToPersist.getMobileNumber(),
-				contactToPersist.getEmailAddress(),
-				contactToPersist.getDateOfBirth()
+				newContactModifiedFromFirstContactWithoutId.getFirstName(),
+				newContactModifiedFromFirstContactWithoutId.getLastName(),
+				newContactModifiedFromFirstContactWithoutId.getMobileNumber(),
+				newContactModifiedFromFirstContactWithoutId.getEmailAddress(),
+				newContactModifiedFromFirstContactWithoutId.getDateOfBirth()
 				);
 		
-		assertThat(expectedContactPersisted).isEqualTo(contactService.generate(contactToPersist));
+		assertThat(expectedContactPersisted).isEqualTo(contactService.generate(newContactModifiedFromFirstContactWithoutId));
 	}
 	
 	@Test
 	public void editContactByIdTest() {
-		Contact savedContact = contactsInDatabase.get(0);
-		long id = savedContact.getId();
-		Contact contactToEdit = new Contact(savedContact.getId(), 
-				savedContact.getFirstName(),
-				savedContact.getLastName(),
-				savedContact.getMobileNumber(),
-				savedContact.getEmailAddress(),
-				savedContact.getDateOfBirth()
+
+		Contact contactToEdit = new Contact(
+				idFirstSavedContact, 
+				newContactModifiedFromFirstContactWithoutId.getFirstName(),
+				newContactModifiedFromFirstContactWithoutId.getLastName(),
+				newContactModifiedFromFirstContactWithoutId.getMobileNumber(),
+				newContactModifiedFromFirstContactWithoutId.getEmailAddress(),
+				newContactModifiedFromFirstContactWithoutId.getDateOfBirth()
 				);
 		
-		Contact actual = contactService.editById(id, contactToEdit);
+		Contact actual = contactService.editById(idFirstSavedContact, contactToEdit);
 		assertThat(actual).isEqualTo(contactToEdit);
 	}
 
 	@Test
 	public void editContactByLastNameAndFirstNameTest() {
-		Contact savedContact = contactsInDatabase.get(0);
-		String lastName = savedContact.getLastName();
-		String firstName = savedContact.getFirstName();
-		Contact contactToEdit = new Contact(savedContact.getId(), 
-				firstName,
-				lastName,
-				savedContact.getMobileNumber(),
-				savedContact.getEmailAddress(),
-				savedContact.getDateOfBirth()
+		
+		String lastNameFirstSavedContact = firstSavedContact.getLastName();
+		String firstNameFirstSavedContact = firstSavedContact.getFirstName();
+
+		Contact contactToEdit = new Contact(
+				idFirstSavedContact, 
+				firstNameFirstSavedContact,
+				lastNameFirstSavedContact,
+				newContactModifiedFromFirstContactWithoutId.getMobileNumber(),
+				newContactModifiedFromFirstContactWithoutId.getEmailAddress(),
+				newContactModifiedFromFirstContactWithoutId.getDateOfBirth()
 				);
 
-		Contact actual = contactService.editByLastNameAndFirstName(lastName, firstName, savedContact);
+		Contact actual = contactService.editByLastNameAndFirstName(lastNameFirstSavedContact, firstNameFirstSavedContact, contactToEdit);
+		
 		assertThat(actual).isEqualTo(contactToEdit);
 	}
 	
 	@Test
 	public void removeContactTest() {
-		Contact savedContact = contactsInDatabase.get(0);
-		long id = savedContact.getId();
 		
-		contactService.remove(id);
+		contactService.remove(idFirstSavedContact);
 		
-		assertThat(contactRepository.findById(id)).isEqualTo(Optional.empty());
+		assertThat(contactRepository.findById(idFirstSavedContact)).isEqualTo(Optional.empty());
 	}
 	
 	@Test
