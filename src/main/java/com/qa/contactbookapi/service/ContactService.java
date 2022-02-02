@@ -91,7 +91,7 @@ public class ContactService {
 			
 			return contactRepository.save(contactToEdit);
 		} else {
-			throw new InvalidContactException("Cannot find contact with ID " + id);
+			throw new InvalidContactException("Cannot edit contact with ID " + id);
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class ContactService {
 		
 			return contactRepository.save(contactToEdit);
 		} else {
-			throw new InvalidContactException("Cannot find contact with first name " + firstName + " and last name " + lastName);
+			throw new InvalidContactException("Cannot edit contact with first name " + firstName + " and last name " + lastName);
 		}
 	}
 
@@ -129,7 +129,7 @@ public class ContactService {
 		if (contactRepository.existsById(id)) {
 			contactRepository.deleteById(id);
 		} else {
-			throw new InvalidContactException("Cannot find contact with ID " + id);
+			throw new InvalidContactException("Cannot remove non-existent contact with ID " + id);
 		}
 	}
 	
