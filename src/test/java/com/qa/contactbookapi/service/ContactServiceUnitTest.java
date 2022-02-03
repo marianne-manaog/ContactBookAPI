@@ -90,7 +90,7 @@ public class ContactServiceUnitTest {
 			contactService.fetchById(nonExistentId);
 		});
 		
-		String expected = "Cannot find contact with ID " + nonExistentId;
+		String expected = "Cannot find contact with ID " + nonExistentId + " , as it does not exist.";
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 	
@@ -125,7 +125,7 @@ public class ContactServiceUnitTest {
 			contactService.generate(duplicateFirstContactNotHavingId);
 		});
 		
-		String expected = "Contact " + duplicateFirstContactNotHavingId + " is a duplicate";
+		String expected = "Contact " + duplicateFirstContactNotHavingId + " is a duplicate; thus, a new contact with the same fields will not be created.";
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 	
@@ -159,7 +159,7 @@ public class ContactServiceUnitTest {
 			contactService.editById(nonExistentId, contactToEdit);
 		});
 		
-		String expected = "Cannot edit contact with ID " + nonExistentId;
+		String expected = "Cannot edit contact with ID " + nonExistentId + " , as it does not exist.";
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 	
@@ -195,7 +195,7 @@ public class ContactServiceUnitTest {
 			contactService.editByLastNameAndFirstName(invalidLastName, invalidFirstName, invalidContactToEdit);
 		});
 		
-		String expected = "Cannot edit contact with first name " + invalidFirstName + " and last name " + invalidLastName;
+		String expected = "Cannot edit contact with first name " + invalidFirstName + " and last name " + invalidLastName + " , as it does not exist.";
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 	
@@ -217,7 +217,7 @@ public class ContactServiceUnitTest {
 			contactService.remove(nonExistentId);
 		});
 		
-		String expected = "Cannot remove non-existent contact with ID " + nonExistentId;
+		String expected = "Cannot remove contact with ID " + nonExistentId + " , as it does not exist.";
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 	

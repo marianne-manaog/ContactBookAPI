@@ -53,7 +53,6 @@ public class ContactController {
 		return response;
 	}
 
-	
     /**
      * Fetch contact based on their last and first names
      * @param	lastName	The last name (string) of the contact to fetch
@@ -99,7 +98,6 @@ public class ContactController {
 		
 		return new ResponseEntity<Contact>(updatedContact, headers, HttpStatus.ACCEPTED);
 	}
-	
 	
     /**
      * Edit contact's details (except for the ID, and the last and first names) based on their last and first names

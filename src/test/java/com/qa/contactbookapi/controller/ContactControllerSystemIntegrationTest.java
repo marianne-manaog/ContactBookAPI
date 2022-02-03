@@ -5,7 +5,6 @@ import com.qa.contactbookapi.data.entity.Contact;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;

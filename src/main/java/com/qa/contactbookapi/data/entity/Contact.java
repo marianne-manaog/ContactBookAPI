@@ -2,7 +2,6 @@ package com.qa.contactbookapi.data.entity;
 
 import java.time.LocalDate;
 
-
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -34,7 +33,6 @@ public class Contact {
 	@Length(min = 2, message = "Last name must be provided.") 
 	private String lastName;
 	
-
 	@Size(min = 11, max = 11, message = "Mobile number must be 11-digit long (when dialling within the UK).")
 	@NotNull
 	private String mobileNumber;

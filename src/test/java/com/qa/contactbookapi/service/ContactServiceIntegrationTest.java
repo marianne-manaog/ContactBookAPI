@@ -77,7 +77,7 @@ public class ContactServiceIntegrationTest {
 			contactService.fetchById(invalidId);
 		});
 		
-		String expected = "Cannot find contact with ID " + invalidId;
+		String expected = "Cannot find contact with ID " + invalidId + " , as it does not exist.";
 		assertThat(e.getMessage()).isEqualTo(expected);
 	}
 
