@@ -1,4 +1,3 @@
--- drop for testing so any new app contexts that are spawned will be fresh
 DROP TABLE IF EXISTS `Contacts`;
 
 CREATE TABLE `Contacts` (
