@@ -124,33 +124,33 @@ The screenshots of the H2 database further to the above-mentioned API requests a
 
 - Confirming the creation of an additional (fourth) contact in the DB:
 
-![Confirming the creation of an additional (fourth) contact in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_creation_of_fourth_contact.png)
+![Confirming the creation of an additional (fourth) contact in the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_creation_of_fourth_contact.png)
 
 #### Confirmation of data persistence further to Read (R) functionality
 
 - Confirming that the initial three contacts are persisted in the DB and thus can be read from it:
 
-![Confirming that the initial three contacts are persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/showing_initial_db_with_three_contacts.png)
+![Confirming that the initial three contacts are persisted in the DB](docs/h2_db_contacts_persistence_following_api_requests/showing_initial_db_with_three_contacts.png)
 
 #### Confirmations of data persistence further to Update (U) functionality
 
 - Confirming that the first contact has been updated by ID and persisted in the DB:
 
-![Confirming that the first contact has been updated by ID and persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_first_contact_edited_by_id.png)
+![Confirming that the first contact has been updated by ID and persisted in the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_first_contact_edited_by_id.png)
 
 - Confirming that the first contact has been updated by their first and last names and persisted in the DB:
 
-![Confirming that the first contact has been updated by their first and last names and persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_first_contact_edited_by_first_and_last_names.png)
+![Confirming that the first contact has been updated by their first and last names and persisted in the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_first_contact_edited_by_first_and_last_names.png)
 
 #### Confirmations of data persistence further to Delete (D) functionality
 
 - Confirming the deletion of the first contact from the DB by ID:
 
-![Confirming the deletion of the first contact from the DB by ID](docs/h2_db_contacts_persistence_w_api_requests/confirming_deletion_of_first_contact_by_id.png)
+![Confirming the deletion of the first contact from the DB by ID](docs/h2_db_contacts_persistence_following_api_requests/confirming_deletion_of_first_contact_by_id.png)
 
 - Confirming the deletion of all contacts from the DB:
 
-![Confirming the deletion of all contacts from the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_deletion_of_all_contacts.png)
+![Confirming the deletion of all contacts from the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_deletion_of_all_contacts.png)
 
 ###	Screenshot of test results, including coverage report.
 
