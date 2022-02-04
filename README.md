@@ -4,7 +4,7 @@ This repository implements a contact book Spring Boot API as a final project for
 
 ###	Dependencies
 
-Please use the pom.xml file in the root directory to install the required dependencies to run this Java 11-based contact book application and consume it as a Spring Boot API.
+Please use the pom.xml file in the root directory to install the required dependencies to run this [Java 11](https://www.oracle.com/java/technologies/downloads/#:~:text=Java%20SE%20Development%20Kit%2011.0.14)-based contact book application and consume it as a Spring Boot API.
 
 ### How to run it
 
@@ -12,13 +12,17 @@ Further to cloning this repository, this contact book application can be run via
 
 1) Programmatically, via an IDE;
 
-2) By running the .jar executable file provided in the root directory of this repository (ContactBookAPI-0.0.1-SNAPSHOT.jar).
+2) By running the .jar executable file provided in the root directory of this repository, as follows:
+
+```console
+java -jar ContactBookAPI-0.0.1-SNAPSHOT.jar
+```
 
 Please install the following software tools to be able to run this contact book application and consume it as an API:
 
-- An IDE, e.g., Eclipse;
-- Either a plugin for Eclipse with SpringToolSuite4 or its standalone version;
-- A tool to test the API, such as Postman.
+- An IDE, e.g., [Eclipse](https://www.eclipse.org/downloads/);
+- Either a [plugin for Eclipse with SpringToolSuite4](https://marketplace.eclipse.org/content/spring-tools-4-aka-spring-tool-suite-4) or its [standalone version](https://spring.io/tools);
+- A tool to test the API, such as [Postman](https://www.postman.com/downloads/).
 
 ###	Why are we doing this?
 
@@ -52,11 +56,16 @@ Further exceptions could be added, especially regarding the custom queries imple
 
 More importantly, the data transfer object (DTO) design pattern could be leveraged to enhance the security of the data in the application.
 
+For automation purposes, I would also like to create a CI/CD pipeline on [Jenkins](https://www.jenkins.io/) to run unit and integration tests on each feature-related PR (and on the main/development branch once each feature-related PR is merged into the main) to confirm all tests have passed before the build of the application occurs and to be able to merge the feature branch-related changes into the main/development branch if all tests ran successfully. Unit and integration tests could be added as two separate stages of the Jenkins CI/CD pipeline and separate coverage reports could be generated automatically to facilitate code's maintainability and visibility of any gaps there may be regarding either unit or integration tests. Furthermore, via ['Codecov' and GitHub hooks](https://docs.codecov.com/docs/how-to-create-a-github-app-for-codecov-enterprise), the test coverage could be added as a badge on GitHub to be more visible and dynamically updated following the merge of every feature-related branch into the main/development one. However, in this project, I tested each feature branch on my local environment and confirmed all tests passed prior to raising a PR.
+
 ###	Screenshots showing Postman requests and the output from the API.
 
 The full CRUD functionalities implemented were tested via Postman requests as well and the outputs from the API are shown in the screenshots below as related evidence.
 
 #### Create (C) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Output when creating a contact (having three contacts in the DB beforehand):
 
@@ -66,7 +75,12 @@ The full CRUD functionalities implemented were tested via Postman requests as we
 
 ![Cannot create a duplicate contact](docs/postman_api_screenshots/cannot_create_duplicate_contact.png)
 
+</details>
+
 #### Read (R) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Output when getting all contacts:
 
@@ -80,7 +94,12 @@ The full CRUD functionalities implemented were tested via Postman requests as we
 
 ![Getting a contact by first and last names](docs/postman_api_screenshots/get_contact_by_first_and_last_names.png)
 
+</details>
+
 #### Update (U) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Output when editing a contact by ID:
 
@@ -98,7 +117,12 @@ The full CRUD functionalities implemented were tested via Postman requests as we
 
 ![Cannot edit a contact with non-existent first and last names](docs/postman_api_screenshots/cannot_edit_contact_by_non_existent_first_and_last_names.png)
 
+</details>
+
 #### Delete (D) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Output when deleting a contact by ID:
 
@@ -116,23 +140,38 @@ The full CRUD functionalities implemented were tested via Postman requests as we
 
 ![Confirming deletion of all contacts](docs/postman_api_screenshots/confirm_deletion_of_all_contacts.png)
 
+</details>
+
 ###	Screenshots of database to prove that data are being persisted.
 
 The screenshots of the H2 database further to the above-mentioned API requests are provided below to confirm that data are persisted correctly.
 
 #### Confirmation of data persistence further to Create (C) functionality
 
+<details>
+<summary>Click to expand</summary>
+
 - Confirming the creation of an additional (fourth) contact in the DB:
 
 ![Confirming the creation of an additional (fourth) contact in the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_creation_of_fourth_contact.png)
 
+</details>
+
 #### Confirmation of data persistence further to Read (R) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Confirming that the initial three contacts are persisted in the DB and thus can be read from it:
 
 ![Confirming that the initial three contacts are persisted in the DB](docs/h2_db_contacts_persistence_following_api_requests/showing_initial_db_with_three_contacts.png)
 
+</details>
+
 #### Confirmations of data persistence further to Update (U) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Confirming that the first contact has been updated by ID and persisted in the DB:
 
@@ -142,7 +181,12 @@ The screenshots of the H2 database further to the above-mentioned API requests a
 
 ![Confirming that the first contact has been updated by their first and last names and persisted in the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_first_contact_edited_by_first_and_last_names.png)
 
+</details>
+
 #### Confirmations of data persistence further to Delete (D) functionality
+
+<details>
+<summary>Click to expand</summary>
 
 - Confirming the deletion of the first contact from the DB by ID:
 
@@ -152,11 +196,18 @@ The screenshots of the H2 database further to the above-mentioned API requests a
 
 ![Confirming the deletion of all contacts from the DB](docs/h2_db_contacts_persistence_following_api_requests/confirming_deletion_of_all_contacts.png)
 
+</details>
+
 ###	Screenshot of test results, including coverage report.
 
 The screenshot of the unit and integration test results (all 43 tests passed), along with the full coverage report indicating 97.2% test coverage, is provided below. 
 
+<details>
+<summary>Click to expand</summary>
+
 ![Test results and coverage](docs/Test_results_with_coverage_report.png)
+
+</details>
 
 ###	Link to Jira Board
 
