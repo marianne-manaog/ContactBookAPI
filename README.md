@@ -2,6 +2,24 @@
 
 This repository implements a contact book Spring Boot API as a final project for QA Ltd.
 
+###	Dependencies
+
+Please use the pom.xml file in the root directory to install the required dependencies to run this Java 11-based contact book application and consume it as a Spring Boot API.
+
+### How to run it
+
+Further to cloning this repository, this contact book application can be run via either of the following methods: 
+
+1) Programmatically, via an IDE;
+
+2) By running the .jar executable file provided in the root directory of this repository (ContactBookAPI-0.0.1-SNAPSHOT.jar).
+
+Please install the following software tools to be able to run this contact book application and consume it as an API:
+
+- An IDE, e.g., Eclipse;
+- Either a plugin for Eclipse with SpringToolSuite4 or its standalone version;
+- A tool to test the API, such as Postman.
+
 ###	Why are we doing this?
 
 This is the final project of the "Digital Skills Bootcamp in Software Development" at QA Ltd and it aims to assess the required theoretical and practical knowledge in Software Development as per the SFIA Level 2 standards. In particular, this project seeks to assess the following learning objectives:
@@ -42,61 +60,61 @@ The full CRUD functionalities implemented were tested via Postman requests as we
 
 - Output when creating a contact (having three contacts in the DB beforehand):
 
-![Creating a contact](docs/postman_api_screenshots/create_new_contact.png).
+![Creating a contact](docs/postman_api_screenshots/create_new_contact.png)
 
 - Output when trying to create a duplicate contact (already created above) and thus throwing the expected duplicate contact-related exception:
 
-![Cannot create a duplicate contact](docs/postman_api_screenshots/cannot_create_duplicate_contact.png).
+![Cannot create a duplicate contact](docs/postman_api_screenshots/cannot_create_duplicate_contact.png)
 
 #### Read (R) functionality
 
 - Output when getting all contacts:
 
-![Getting all contacts](docs/postman_api_screenshots/get_all_contacts.png).
+![Getting all contacts](docs/postman_api_screenshots/get_all_contacts.png)
 
 - Output when getting a contact by ID:
 
-![Getting a contact by ID](docs/postman_api_screenshots/get_contact_by_id.png).
+![Getting a contact by ID](docs/postman_api_screenshots/get_contact_by_id.png)
 
 - Output when getting a contact by first and last names:
 
-![Getting a contact by first and last names](docs/postman_api_screenshots/get_contact_by_first_and_last_names.png).
+![Getting a contact by first and last names](docs/postman_api_screenshots/get_contact_by_first_and_last_names.png)
 
 #### Update (U) functionality
 
 - Output when editing a contact by ID:
 
-![Editing a contact by ID](docs/postman_api_screenshots/edit_contact_by_id.png).
+![Editing a contact by ID](docs/postman_api_screenshots/edit_contact_by_id.png)
 
 - Output when trying to edit a contact whose ID does not exist in the DB and thus throwing the expected invalid/not found contact-related exception:
 
-![Cannot edit a contact with non-existent ID](docs/postman_api_screenshots/cannot_edit_contact_with_non_existent_id.png).
+![Cannot edit a contact with non-existent ID](docs/postman_api_screenshots/cannot_edit_contact_with_non_existent_id.png)
 
 - Output when editing a contact by first and last names:
 
-![Editing a contact by first and last names](docs/postman_api_screenshots/edit_contact_by_first_and_last_names.png).
+![Editing a contact by first and last names](docs/postman_api_screenshots/edit_contact_by_first_and_last_names.png)
 
 - Output when trying to edit a contact whose first and last names do not exist in the DB and thus throwing the expected invalid/not found contact-related exception:
 
-![Cannot edit a contact with non-existent first and last names](docs/postman_api_screenshots/cannot_edit_contact_by_non_existent_first_and_last_names.png).
+![Cannot edit a contact with non-existent first and last names](docs/postman_api_screenshots/cannot_edit_contact_by_non_existent_first_and_last_names.png)
 
 #### Delete (D) functionality
 
 - Output when deleting a contact by ID:
 
-![Deleting contact by ID](docs/postman_api_screenshots/delete_contact_by_id.png).
+![Deleting contact by ID](docs/postman_api_screenshots/delete_contact_by_id.png)
 
 - Output confirming the deletion of a contact by ID:
 
-![Confirming deletion of contact by ID](docs/postman_api_screenshots/confirm_deletion_of_first_contact.png).
+![Confirming deletion of contact by ID](docs/postman_api_screenshots/confirm_deletion_of_first_contact.png)
 
 - Output when deleting all contacts:
 
-![Deleting all contacts](docs/postman_api_screenshots/delete_all_contacts.png).
+![Deleting all contacts](docs/postman_api_screenshots/delete_all_contacts.png)
 
 - Output confirming the deletion of all contacts:
 
-![Confirming deletion of all contacts](docs/postman_api_screenshots/confirm_deletion_of_all_contacts.png).
+![Confirming deletion of all contacts](docs/postman_api_screenshots/confirm_deletion_of_all_contacts.png)
 
 ###	Screenshots of database to prove that data are being persisted.
 
@@ -106,39 +124,39 @@ The screenshots of the H2 database further to the above-mentioned API requests a
 
 - Confirming the creation of an additional (fourth) contact in the DB:
 
-![Confirming the creation of an additional (fourth) contact in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_creation_of_fourth_contact.png).
+![Confirming the creation of an additional (fourth) contact in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_creation_of_fourth_contact.png)
 
 #### Confirmation of data persistence further to Read (R) functionality
 
 - Confirming that the initial three contacts are persisted in the DB and thus can be read from it:
 
-![Confirming that the initial three contacts are persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/showing_initial_db_with_three_contacts.png).
+![Confirming that the initial three contacts are persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/showing_initial_db_with_three_contacts.png)
 
 #### Confirmations of data persistence further to Update (U) functionality
 
 - Confirming that the first contact has been updated by ID and persisted in the DB:
 
-![Confirming that the first contact has been updated by ID and persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_first_contact_edited_by_id.png).
+![Confirming that the first contact has been updated by ID and persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_first_contact_edited_by_id.png)
 
 - Confirming that the first contact has been updated by their first and last names and persisted in the DB:
 
-![Confirming that the first contact has been updated by their first and last names and persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_first_contact_edited_by_first_and_last_names.png).
+![Confirming that the first contact has been updated by their first and last names and persisted in the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_first_contact_edited_by_first_and_last_names.png)
 
 #### Confirmations of data persistence further to Delete (D) functionality
 
 - Confirming the deletion of the first contact from the DB by ID:
 
-![Confirming the deletion of the first contact from the DB by ID](docs/h2_db_contacts_persistence_w_api_requests/confirming_deletion_of_first_contact_by_id.png).
+![Confirming the deletion of the first contact from the DB by ID](docs/h2_db_contacts_persistence_w_api_requests/confirming_deletion_of_first_contact_by_id.png)
 
 - Confirming the deletion of all contacts from the DB:
 
-![Confirming the deletion of all contacts from the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_deletion_of_all_contacts.png).
+![Confirming the deletion of all contacts from the DB](docs/h2_db_contacts_persistence_w_api_requests/confirming_deletion_of_all_contacts.png)
 
 ###	Screenshot of test results, including coverage report.
 
 The screenshot of the unit and integration test results (all 43 tests passed), along with the full coverage report indicating 97.2% test coverage, is provided below. 
 
-![Test results and coverage](docs/Test_results_with_coverage_report.png).
+![Test results and coverage](docs/Test_results_with_coverage_report.png)
 
 ###	Link to Jira Board
 
